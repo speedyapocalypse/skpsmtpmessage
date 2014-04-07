@@ -146,18 +146,15 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
 
 - (void)stopWatchdog
 {
-    if ([self watchdogTimer]) {
-        
-        if ([self enableDebugLogging]) NSLog(@"*** stopping watchdog ***");
-        
-        [self.watchdogTimer invalidate];
-        self.watchdogTimer = nil;
-        
-    }
+    if (![self watchdogTimer]) return;
+    
+    if ([self enableDebugLogging]) NSLog(@"*** stopping watchdog ***");
+    
+    [[self watchdogTimer] invalidate];
+    [self setWatchdogTimer:nil];
 }
 
-
-#pragma mark Watchdog Callback
+#pragma mark - Watchdog Callback
 
 - (void)connectionWatchdog:(NSTimer *)aTimer
 {
