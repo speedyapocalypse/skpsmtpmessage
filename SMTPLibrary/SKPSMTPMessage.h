@@ -76,6 +76,8 @@ extern NSString *kSKPSMTPPartContentTransferEncodingKey;
 
 @interface SKPSMTPMessage : NSObject <NSCopying, NSStreamDelegate>
 
+@property (nonatomic, assign) BOOL enableDebugLogging;
+
 @property(nonatomic, strong) NSString *login;
 @property(nonatomic, strong) NSString *pass;
 @property(nonatomic, strong) NSString *relayHost;
