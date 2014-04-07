@@ -59,11 +59,6 @@
     [self updateTextView];
 }
 
-- (void)dealloc {
-    [window release];
-    [super dealloc];
-}
-
 - (void)updateTextView {
     NSMutableString *logText = [[NSMutableString alloc] init];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -80,7 +75,6 @@
     }
     [logText appendFormat:@"Secure: %@\n", [[defaults objectForKey:@"wantsSecure"] boolValue] ? @"Yes" : @"No"];
     self.textView.text = logText;
-    [logText release];
 
 }
 
@@ -130,7 +124,6 @@
 }
 - (void)messageSent:(SKPSMTPMessage *)message
 {
-    [message release];
     self.textView.text  = @"Yay! Message was sent!";
     //NSLog(@"delegate - message sent");
 }
@@ -139,8 +132,7 @@
 {
     
     //self.textView.text = [NSString stringWithFormat:@"Darn! Error: %@, %@", [error code], [error localizedDescription]];
-    self.textView.text = [NSString stringWithFormat:@"Darn! Error!\n%i: %@\n%@", [error code], [error localizedDescription], [error localizedRecoverySuggestion]];
-    [message release];
+    self.textView.text = [NSString stringWithFormat:@"Darn! Error!\n%li: %@\n%@", (long)[error code], [error localizedDescription], [error localizedRecoverySuggestion]];
     
     //NSLog(@"delegate - error(%d): %@", [error code], [error localizedDescription]);
 }
